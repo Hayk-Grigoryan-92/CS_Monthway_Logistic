@@ -21,6 +21,8 @@ namespace lesson45
                 switch (option)
                 {
                     case 1:
+                        Console.WriteLine("Press 1 : Add Route | Press 2 : Add Vehicle");
+                        Console.WriteLine();
                         break;
                     case 2:
                         Console.WriteLine("Transport Car From");
@@ -32,20 +34,7 @@ namespace lesson45
                         Console.WriteLine("Transport Type");
                         Console.WriteLine("Press 1 : Open | Press 2 | Enclosed");
                         int typeOption = int.Parse(Console.ReadLine());
-                        Enum type;
-                        if(typeOption == 1)
-                        {
-                           type = TransportType.Open;
-                        }
-                        else if(typeOption == 2)
-                        {
-                            type = TransportType.Enclosed;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Wrong type of car");
-                            continue;
-                        }
+                      
 
                         Console.WriteLine("Vehicle year");
                         int year = int.Parse(Console.ReadLine());
@@ -55,19 +44,7 @@ namespace lesson45
 
                         Console.WriteLine("Is it operable");
                         int typeOperable = int.Parse(Console.ReadLine());
-                        Enum operable;
-                        if(typeOperable == 1)
-                        {
-                            operable = Operable.Yes;
-                        }else if(typeOperable == 2)
-                        {
-                            operable = Operable.No;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Wrong operable type");
-                            continue;
-                        }
+                      
 
                         Console.WriteLine("Enter your Email");
                         
@@ -78,17 +55,5 @@ namespace lesson45
                 }
             }
         }
-    }
-
-    enum TransportType
-    {
-        Open,
-        Enclosed
-    }
-
-    enum Operable
-    {
-        Yes,
-        No
     }
 }

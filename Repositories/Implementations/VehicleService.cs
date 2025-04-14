@@ -14,16 +14,16 @@ namespace lesson45.Services.Implementations
 			_list.Add(v);
 		}
 
-		public void Update(int id, string mark)
+		public void Update(Vehicle vehicle)
 		{
-			foreach (var el in _list)
-			{
-				if (el.Id == id)
-				{
-					el.Mark = mark;
-				}
-			}
-		}
+            _list.ForEach(x =>
+            {
+                if (x.Id == vehicle.Id)
+                {
+                    x.Mark = vehicle.Mark;
+                }
+            });
+        }
 
 		public void Delete(int id)
 		{

@@ -40,7 +40,8 @@ namespace lesson45.Services.Implementations
 		   {
 			   if (x.Id == route.Id)
 			   {
-				   x.Name = route.Name;
+				   x.From = route.From;
+				   x.To = route.To;
 			   }
 		   });
 		}

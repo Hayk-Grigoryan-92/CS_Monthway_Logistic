@@ -9,12 +9,17 @@ namespace lesson45.Models.RouteFromTo
 	internal class Route
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
+		public string From { get; set; }
+		public string To { get; set; }
+		public float Coefficient {  get; set; }
 
-		public Route(int id, string name)
+
+        public Route(int id, string from, string to, float coefficient)
 		{
 			Id = id;
-			Name = name;
+			From = from;
+			To = to;
+			Coefficient = coefficient;
 		}
 	}
 }

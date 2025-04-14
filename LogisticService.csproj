@@ -47,6 +47,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ContainerType\ContainerType.cs" />
+    <Compile Include="Models\Operable\Operable.cs" />
     <Compile Include="Models\RouteFromTo\Route.cs" />
     <Compile Include="Models\Vehicle\VehicleModel.cs" />
     <Compile Include="Models\Vehicle\Vehicle.cs" />
@@ -55,8 +57,10 @@
     <Compile Include="Models\Request\Request.cs" />
     <Compile Include="Repositories\Abstractions\IRepository.cs" />
     <Compile Include="Repositories\Implementations\ModelService.cs" />
+    <Compile Include="Repositories\Implementations\OperableService.cs" />
     <Compile Include="Repositories\Implementations\RouteCity.cs" />
     <Compile Include="Repositories\Implementations\VehicleService.cs" />
+    <Compile Include="Repositories\DataBaseSerice\DataBaseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
