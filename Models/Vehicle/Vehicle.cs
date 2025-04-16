@@ -9,7 +9,7 @@ namespace lesson45.Models.Car
 		public int Id { get; set; }
 		public string Mark { get; set; }
 
-        private List<VehicleModel> _models = new List<VehicleModel>();
+        public List<VehicleModel> _models = new List<VehicleModel>();
 
 		public Vehicle(int id, string mark) 
 		{

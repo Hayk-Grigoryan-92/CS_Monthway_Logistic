@@ -6,7 +6,7 @@ namespace lesson45.Repositories.Implementations
 {
     internal class VehicleTypeCoefficientService : IVehicleTypeCoefficient
     {
-        private readonly Dictionary<VehicleType, float> _coefficients = new Dictionary<VehicleType, float>
+        public  Dictionary<VehicleType, float> _coefficients = new Dictionary<VehicleType, float>
         {
             { VehicleType.Sedan, 1.0f },
             { VehicleType.Jeep, 1.2f },
