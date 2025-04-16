@@ -1,25 +1,30 @@
 ﻿using lesson45.Models;
+using lesson45.Models.DataBase;
 using lesson45.Services.Abstractions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace lesson45.Repositories.Implementations
 {
     internal class OperableService : IRepository<Operable>
     {
-        private List<Operable> operables = new List<Operable>();
+        public OperableService(Database database)
+        {
+            _database = database;
+        }
+
+        private readonly Database _database;
+
+        public int Count { get; set; } = 1;
 
         public void Add(Operable item)
         {
-            operables.Add(item);
+            _database.Operables.Add(item);
+            _database.Operables[_database.Operables.Count - 1].Id = Count;
+            Count++;
         }
 
         public void Update(Operable item)
         {
-            var expected = operables.Find(x => x.IsOperable == item.IsOperable);
+            var expected = _database.Operables.Find(x => x.IsOperable == item.IsOperable);
             if (expected != null)
             {
                 expected.Coefficient = item.Coefficient;
@@ -28,15 +33,15 @@ namespace lesson45.Repositories.Implementations
 
         public void Delete(int id)
         {
-            if (id < operables.Count)
+            if (id < _database.Operables.Count)
             {
-                operables.RemoveAt(id);
+                _database.Operables.RemoveAt(id);
             }
         }
 
         public List<Operable> Get()
         {
-            return operables;
+            return _database.Operables;
         }
     }
 }

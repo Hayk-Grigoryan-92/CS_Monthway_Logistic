@@ -2,6 +2,7 @@
 using lesson45.Models.Car;
 using lesson45.Models.ContainerType;
 using lesson45.Models.RouteFromTo;
+using lesson45.Repositories.Abstractions;
 using lesson45.Repositories.Implementations;
 using lesson45.RequestList;
 using lesson45.Services.Abstractions;
@@ -14,33 +15,62 @@ using System.Threading.Tasks;
 
 namespace lesson45.Repositories.Service
 {
-     internal class DataBaseService
+
+
+    internal class DataBaseService
     {
-        public IRepository<VehicleType> CarType {  get; set; }
+        public IRepository<VehicleModel> CarType { get; set; }
         public IRepository<Operable> CarOperable { get; set; }
         public IRepository<Route> Route { get; set; }
-        public IRepository<ContainerType> ContainerType { get; set; }
+        public IRepository<ContainerModel> ContainerType { get; set; }
 
-        public DataBaseService(IRepository<VehicleType> carType, IRepository<Operable> carOperable, IRepository<Route> route, IRepository<ContainerType> containerType)
+        public IVehicleTypeCoefficient Coefficient { get; set; }
+
+        public DataBaseService(
+            IRepository<VehicleModel> carType,
+            IRepository<Operable> carOperable,
+            IRepository<Route> route,
+            IRepository<ContainerModel> containerType,
+            IVehicleTypeCoefficient coefficient
+            )
         {
             CarType = carType;
             CarOperable = carOperable;
             Route = route;
             ContainerType = containerType;
+            Coefficient = coefficient;
         }
 
         public float CalculationModel(Request request)
         {
             var route = Route.Get().FirstOrDefault(x => x.From == request.From && x.To == request.To);
-            var operableItem = CarOperable.Get().FirstOrDefault(x => x.IsOperable == request.IsOperable);
-            var container = ContainerType.Get().FirstOrDefault(x => x.IsOpen == request.Container);
-
-            if (route == null || operableItem == null || container == null)
+            if (route == null)
             {
-                throw new Exception("Incorrect data");
+                throw new Exception("Route doesn't exist");
+            }
+               
+            var operableItem = CarOperable.Get().FirstOrDefault(x => x.IsOperable == request.IsOperable);
+            if(operableItem == null)
+            {
+                throw new Exception("Type of operable doesn't exist");
             }
 
-            float result = route.Coefficient * operableItem.Coefficient * container.Coefficient;
+            var container = ContainerType.Get().FirstOrDefault(x => x.IsOpen == request.Container);
+            if (container == null)
+            {
+                throw new Exception("Type of container doesn't exist");
+            }
+
+            var vehicleType = CarType.Get().FirstOrDefault(x =>
+            x.Model.Equals(request.Model));
+            if (vehicleType == null) 
+            {
+                throw new Exception("Vehicle model doesn't exist");
+            }
+
+            var coefficient = Coefficient.GetCoefficient(vehicleType.Type);
+
+            int result = (int)Math.Round(route.Distance * operableItem.Coefficient * container.Coefficient * coefficient * route.PricePerKm, 2);
 
             return result;
         }
