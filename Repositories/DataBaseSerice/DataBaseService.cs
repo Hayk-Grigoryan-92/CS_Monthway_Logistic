@@ -70,7 +70,7 @@ namespace lesson45.Repositories.Service
 
             var coefficient = Coefficient.GetCoefficient(vehicleType.Type);
 
-            int result = (int)Math.Round(route.Distance * operableItem.Coefficient * container.Coefficient * coefficient * route.PricePerKm, 2);
+            int result = (int)Math.Round(route.Distance * operableItem.Coefficient * container.Coefficient * coefficient * route.PricePerKm);
 
             return result;
         }
