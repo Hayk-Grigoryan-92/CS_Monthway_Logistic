@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace lesson45.Services.Abstractions
 {
@@ -8,6 +7,6 @@ namespace lesson45.Services.Abstractions
 		void Add(T t);
 		void Update(T t);
 		void Delete(int id);
-		List<T> Get();
+		IEnumerable<T> Get();
 	}
 }

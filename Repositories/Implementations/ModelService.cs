@@ -8,20 +8,20 @@ namespace lesson45.Services.Implementations
 {
 	class ModelService : IRepository<VehicleModel>
 	{
-        public ModelService(Database database)
-        {
-            _database = database;
-        }
+		public ModelService(Database database)
+		{
+			_database = database;
+		}
 		public int Count { get; set; } = 1;
 
-        private readonly Database _database;
+		private readonly Database _database;
 
-        public void Add(VehicleModel m)
+		public void Add(VehicleModel m)
 		{
 			_database.VehicleModels.Add(m);
-            _database.VehicleModels[_database.VehicleModels.Count - 1].Id = Count;
-            Count++;
-        }
+			_database.VehicleModels[_database.VehicleModels.Count - 1].Id = Count;
+			Count++;
+		}
 
 		public void Update(VehicleModel model)
 		{
@@ -34,7 +34,7 @@ namespace lesson45.Services.Implementations
 			}
 		}
 
-		public List<VehicleModel> Get()
+		public IEnumerable<VehicleModel> Get()
 		{
 			return _database.VehicleModels;
 		}
@@ -45,7 +45,7 @@ namespace lesson45.Services.Implementations
 			{
 				if (el.Id == id)
 				{
-                    _database.VehicleModels.Remove(el);
+					_database.VehicleModels.Remove(el);
 				}
 				else
 				{

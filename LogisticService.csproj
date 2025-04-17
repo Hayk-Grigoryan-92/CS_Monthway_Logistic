@@ -47,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Enums.cs" />
     <Compile Include="Models\ContainerModel\ContainerModel.cs" />
     <Compile Include="Models\DataBase\Database.cs" />
     <Compile Include="Models\Operable\Operable.cs" />

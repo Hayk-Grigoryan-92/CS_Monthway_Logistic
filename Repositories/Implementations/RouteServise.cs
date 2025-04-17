@@ -8,23 +8,21 @@ namespace lesson45.Services.Implementations
 {
 	class RouteServise : IRepository<Route>
 	{
+		public RouteServise(Database database)
+		{
+			_database = database;
+		}
 
-        public RouteServise(Database database)
-        {
-            _database = database;
-        }
-
-        private readonly Database _database;
+		private readonly Database _database;
 
 		public int Count { get; set; } = 1;
 
-        public void Add(Route route)
+		public void Add(Route route)
 		{
 			_database.Routes.Add(route);
-            _database.Routes[_database.Routes.Count - 1].Id = Count;
-            Count++;
-        }
-
+			_database.Routes[_database.Routes.Count - 1].Id = Count;
+			Count++;
+		}
 		public void Delete(int id)
 		{
 			foreach (Route route in _database.Routes)
@@ -40,7 +38,7 @@ namespace lesson45.Services.Implementations
 			}
 		}
 
-		public List<Route> Get()
+		public IEnumerable<Route> Get()
 		{
 			return _database.Routes;
 		}

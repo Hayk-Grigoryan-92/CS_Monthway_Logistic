@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lesson45.Models.RouteFromTo
+﻿namespace lesson45.Models.RouteFromTo
 {
 	internal class Route
 	{
@@ -12,15 +6,14 @@ namespace lesson45.Models.RouteFromTo
 		public string From { get; set; }
 		public string To { get; set; }
 		public int PricePerKm { get; set; } = 100;
-		public int Distance {  get; set; }
+		public int Distance { get; set; }
 
-
-        public Route(int id, string from, string to, int price, int distance)
+		public Route(int id, string from, string to, int price, int distance)
 		{
 			Id = id;
 			From = from;
 			To = to;
-            PricePerKm = price;
+			PricePerKm = price;
 			Distance = distance;
 		}
 	}

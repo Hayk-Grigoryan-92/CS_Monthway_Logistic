@@ -1,14 +1,8 @@
-﻿namespace lesson45.Models.Car
+﻿using lesson45.Common;
+
+namespace lesson45.Models.Car
 {
-    enum VehicleType
-    {
-        Sedan,
-		Jeep,
-        Motorcycle,
-        Boat,
-        Truck,
-    }
-    class VehicleModel
+	class VehicleModel
 	{
 		public int Id { get; set; }
 		public string Model { get; set; }
@@ -22,6 +16,5 @@
 			Model = model;
 			Type = type;
 		}
-
-    }
+	}
 }

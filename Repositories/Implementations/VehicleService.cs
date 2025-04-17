@@ -6,34 +6,33 @@ using System.Collections.Generic;
 
 namespace lesson45.Services.Implementations
 {
-  
-    class VehicleService : IRepository<Vehicle>
+	class VehicleService : IRepository<Vehicle>
 	{
-        public VehicleService(Database database)
-        {
-            _database = database;
-        }
+		public VehicleService(Database database)
+		{
+			_database = database;
+		}
 
-        private readonly Database _database;
+		private readonly Database _database;
 		public int Count { get; set; } = 1;
 
-        public void Add(Vehicle item)
+		public void Add(Vehicle item)
 		{
 			_database.Vehicles.Add(item);
-            _database.Routes[_database.Routes.Count - 1].Id = Count;
-            Count++;
-        }
+			_database.Routes[_database.Routes.Count - 1].Id = Count;
+			Count++;
+		}
 
 		public void Update(Vehicle vehicle)
 		{
-            _database.Vehicles.ForEach(x =>
-            {
-                if (x.Id == vehicle.Id)
-                {
-                    x.Mark = vehicle.Mark;
-                }
-            });
-        }
+			_database.Vehicles.ForEach(x =>
+			{
+				if (x.Id == vehicle.Id)
+				{
+					x.Mark = vehicle.Mark;
+				}
+			});
+		}
 
 		public void Delete(int id)
 		{
@@ -41,7 +40,7 @@ namespace lesson45.Services.Implementations
 			{
 				if (el.Id == id)
 				{
-                    _database.Vehicles.Remove(el);
+					_database.Vehicles.Remove(el);
 				}
 				else
 				{
@@ -50,7 +49,7 @@ namespace lesson45.Services.Implementations
 			}
 		}
 
-		public List<Vehicle> Get()
+		public IEnumerable<Vehicle> Get()
 		{
 			return _database.Vehicles;
 		}
