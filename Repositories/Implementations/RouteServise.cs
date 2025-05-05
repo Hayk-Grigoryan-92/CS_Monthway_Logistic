@@ -49,8 +49,8 @@ namespace lesson45.Services.Implementations
 		   {
 			   if (x.Id == route.Id)
 			   {
-				   x.From = route.From;
-				   x.To = route.To;
+				   x.Fromm = route.Fromm;
+				   x.Too = route.Too;
 				   x.PricePerKm = route.PricePerKm;
 				   x.Distance = route.Distance;
 			   }

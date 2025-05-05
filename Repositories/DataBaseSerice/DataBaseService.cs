@@ -36,7 +36,7 @@ namespace lesson45.Repositories.Service
 
 		public float CalculationModel(Request request)
 		{
-			var route = Route.Get().FirstOrDefault(x => x.From == request.From && x.To == request.To);
+			var route = Route.Get().FirstOrDefault(x => x.Fromm == request.From && x.Too == request.To);
 			
 			if (route == null)
 			{

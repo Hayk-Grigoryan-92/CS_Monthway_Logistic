@@ -9,9 +9,8 @@ namespace lesson45.Models.Car
 
 		public List<VehicleModel> _models = new List<VehicleModel>();
 
-		public Vehicle(int id, string mark)
+		public Vehicle(string mark)
 		{
-			Id = id;
 			Mark = mark;
 		}
 	}

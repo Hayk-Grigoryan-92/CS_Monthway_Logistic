@@ -7,11 +7,13 @@
 
 		public float Coefficient { get; set; }
 
-		public ContainerModel(bool isOpen, float coefficient, int id)
+		public ContainerModel(bool isOpen, float coefficient)
 		{
 			IsOpen = isOpen;
 			Coefficient = coefficient;
-			Id = id;
 		}
-	}
+        public ContainerModel()
+        {
+        }
+    }
 }

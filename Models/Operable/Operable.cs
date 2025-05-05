@@ -6,11 +6,10 @@
 		public bool IsOperable { get; set; }
 		public float Coefficient { get; set; }
 
-		public Operable(bool isOperable, float coefficient, int id)
+		public Operable(bool isOperable, float coefficient)
 		{
 			IsOperable = isOperable;
 			Coefficient = coefficient;
-			Id = id;
 		}
 	}
 }

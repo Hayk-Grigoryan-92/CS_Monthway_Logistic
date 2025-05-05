@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="ConnectionString\ConnectionString.cs" />
     <Compile Include="Models\ContainerModel\ContainerModel.cs" />
     <Compile Include="Models\DataBase\Database.cs" />
     <Compile Include="Models\Operable\Operable.cs" />
@@ -59,6 +60,8 @@
     <Compile Include="Models\Request\Request.cs" />
     <Compile Include="Repositories\Abstractions\IRepository.cs" />
     <Compile Include="Repositories\Abstractions\IVehicleTypeCoefficient.cs" />
+    <Compile Include="Repositories\DbImplementations\DbContainerService.cs" />
+    <Compile Include="Repositories\DbRepository\DbContainerRepo.cs" />
     <Compile Include="Repositories\Implementations\ContainerService.cs" />
     <Compile Include="Repositories\Implementations\ModelService.cs" />
     <Compile Include="Repositories\Implementations\OperableService.cs" />

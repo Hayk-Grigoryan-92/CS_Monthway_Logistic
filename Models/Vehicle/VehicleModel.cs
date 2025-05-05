@@ -10,9 +10,8 @@ namespace lesson45.Models.Car
 		public int Year { get; set; }
 		public int Price { get; set; }
 
-		public VehicleModel(int id, string model, VehicleType type)
+		public VehicleModel(string model, VehicleType type)
 		{
-			Id = id;
 			Model = model;
 			Type = type;
 		}

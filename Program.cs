@@ -89,7 +89,7 @@ namespace lesson45
 											var routesList = routeService.Get();
 											routesList
 												.ToList()
-												.ForEach(x => Console.WriteLine($"{x.Id} | {x.From} | {x.To} | {x.Distance} | {x.PricePerKm}"));
+												.ForEach(x => Console.WriteLine($"{x.Id} | {x.Fromm} | {x.Too} | {x.Distance} | {x.PricePerKm}"));
 											break;
 										case 5: // Back
 											routeFlag = false;
