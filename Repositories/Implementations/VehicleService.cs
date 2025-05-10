@@ -1,4 +1,5 @@
 ﻿using lesson45.Models.Car;
+using lesson45.Models.DataBase;
 using lesson45.Services.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -7,31 +8,39 @@ namespace lesson45.Services.Implementations
 {
 	class VehicleService : IRepository<Vehicle>
 	{
-		private List<Vehicle> _list = new List<Vehicle>();
-
-		public void Add(Vehicle v)
+		public VehicleService(Database database)
 		{
-			_list.Add(v);
+			_database = database;
 		}
 
-		public void Update(int id, string mark)
+		private readonly Database _database;
+		public int Count { get; set; } = 1;
+
+		public void Add(Vehicle item)
 		{
-			foreach (var el in _list)
+			_database.Vehicles.Add(item);
+			_database.Routes[_database.Routes.Count - 1].Id = Count;
+			Count++;
+		}
+
+		public void Update(Vehicle vehicle)
+		{
+			_database.Vehicles.ForEach(x =>
 			{
-				if (el.Id == id)
+				if (x.Id == vehicle.Id)
 				{
-					el.Mark = mark;
+					x.Mark = vehicle.Mark;
 				}
-			}
+			});
 		}
 
 		public void Delete(int id)
 		{
-			foreach (var el in _list)
+			foreach (var el in _database.Vehicles)
 			{
 				if (el.Id == id)
 				{
-					_list.Remove(el);
+					_database.Vehicles.Remove(el);
 				}
 				else
 				{
@@ -40,9 +49,9 @@ namespace lesson45.Services.Implementations
 			}
 		}
 
-		public List<Vehicle> Get()
+		public IEnumerable<Vehicle> GetAll()
 		{
-			return _list;
+			return _database.Vehicles;
 		}
 	}
 }
