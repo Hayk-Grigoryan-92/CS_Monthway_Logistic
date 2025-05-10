@@ -7,6 +7,7 @@ namespace lesson45.Services.Abstractions
 		void Add(T t);
 		void Update(T t);
 		void Delete(int id);
-		IEnumerable<T> Get();
+		T GetById(int id);
+		IEnumerable<T> GetAll();
 	}
 }

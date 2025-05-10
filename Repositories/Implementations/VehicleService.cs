@@ -49,7 +49,7 @@ namespace lesson45.Services.Implementations
 			}
 		}
 
-		public IEnumerable<Vehicle> Get()
+		public IEnumerable<Vehicle> GetAll()
 		{
 			return _database.Vehicles;
 		}

@@ -1,59 +1,108 @@
 ﻿using lesson45.Models.ContainerType;
+using lesson45.Repositories.Abstractions;
+using lesson45.Services.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lesson45.Repositories.DbImplementations
 {
-    internal class DbContainerService
+    internal class DbContainerService : IServices<ContainerModel>
     {
-        private DbContainerRepo _container = new DbContainerRepo();
+        private IRepository<ContainerModel> _container;
 
-        public void AddContainer(ContainerModel container)
+        public DbContainerService(IRepository<ContainerModel> container)
         {
-            _container.Add(container);
-            Console.WriteLine("Container added successfully.");
+            _container = container;
         }
 
-        public void ShowAllContainers()
+        public void Add(ContainerModel container)
         {
-            var containrs = _container.Get();
-            if (containrs == null)
+            try
             {
-                Console.WriteLine("No containers found.");
-                return;
+                _container.Add(container);
+                Console.WriteLine("Container added successfully.");
             }
-            foreach (var el in containrs)
+            catch(Exception ex)
             {
-                Console.WriteLine($"{el.Id} | {el.IsOpen} | {el.Coefficient}");
+                Console.WriteLine(ex.Message);
             }
         }
 
-        public void UpdateContainer(ContainerModel container)
+        public void ShowAll()
         {
-            var result = _container.Get().FirstOrDefault(x => x.Id == container.Id);
-            if (result == null)
+            try
             {
-                Console.WriteLine($"Container with ID {container.Id} does not exist.");
-                return;
+                var containrs = _container.GetAll();
+                if (containrs == null)
+                {
+                    Console.WriteLine("No containers found.");
+                    return;
+                }
+                foreach (var el in containrs)
+                {
+                    Console.WriteLine($"{el.Id} | {el.IsOpen} | {el.Coefficient}");
+                }
             }
-            _container.Update(container);
-            Console.WriteLine("Container updated successfully.");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        public void DeleteContainer(int id) 
+        public void ShowById(int id)
         {
-            var result = _container.Get().FirstOrDefault(x => x.Id == id);
-            if (result == null)
+            try
             {
-                Console.WriteLine($"Container with ID {id} does not exist.");
-                return;
+                var container = _container.GetById(id);
+                if(container == null)
+                {
+                    Console.WriteLine("No Container found.");
+                    return;
+                }
+                Console.WriteLine($"{container.Id} | {container.IsOpen} | {container.Coefficient}");
             }
-            _container.Delete(id);
-            Console.WriteLine("Container deleted successfully.");
+            catch( Exception ex ) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void Update(ContainerModel container)
+        {
+            try
+            {
+                var result = _container.GetAll().FirstOrDefault(x => x.Id == container.Id);
+                if (result == null)
+                {
+                    Console.WriteLine($"Container with ID {container.Id} does not exist.");
+                    return;
+                }
+                _container.Update(container);
+                Console.WriteLine("Container updated successfully.");
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void Delete(int id) 
+        {
+            try
+            {
+                var result = _container.GetById(id);
+                if (result == null)
+                {
+                    Console.WriteLine($"Container with ID {id} does not exist.");
+                    return;
+                }
+                _container.Delete(id);
+                Console.WriteLine("Container deleted successfully.");
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

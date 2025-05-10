@@ -40,7 +40,7 @@ namespace lesson45.Repositories.Implementations
 			}
 		}
 
-		public IEnumerable<Operable> Get()
+		public IEnumerable<Operable> GetAll()
 		{
 			return _database.Operables;
 		}

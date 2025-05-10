@@ -13,5 +13,6 @@ namespace lesson45.Models.Car
 		{
 			Mark = mark;
 		}
+		public Vehicle() { }
 	}
 }

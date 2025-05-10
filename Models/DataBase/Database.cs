@@ -18,32 +18,32 @@ namespace lesson45.Models.DataBase
 		{
 			Routes = new List<Route>
 			{
-				new Route(1, "Yerevan", "Gyumri", 100, 120),
-				new Route(2, "Gyumri", "Vanadzor", 100, 150)
+				new Route("Yerevan", "Gyumri", 100, 120),
+				new Route("Gyumri", "Vanadzor", 100, 150)
 			};
 
 			Operables = new List<Operable>
 			{
-				new Operable(true, 1.1f, 1),
-				new Operable(false, 0.8f, 2)
+				new Operable(true, 1.1f),
+				new Operable(false, 0.8f)
 			};
 
 			Vehicles = new List<Vehicle>
 			{
-				new Vehicle(1, "Toyota"),
-				new Vehicle(2, "BMW")
+				new Vehicle("Toyota"),
+				new Vehicle("BMW")
 			};
 
 			VehicleModels = new List<VehicleModel>
 			{
-				new VehicleModel(1, "Corolla", VehicleType.Sedan),
-				new VehicleModel(2, "X5", VehicleType.Jeep)
+				new VehicleModel("Corolla", VehicleType.Sedan),
+				new VehicleModel("X5", VehicleType.Jeep)
 			};
 
 			ContainerModels = new List<ContainerModel>
 			{
-				new ContainerModel(true, 1.0f, 1),
-				new ContainerModel(false, 0.9f, 2)
+				new ContainerModel(true, 1.0f),
+				new ContainerModel(false, 0.9f)
 			};
 		}
 	}

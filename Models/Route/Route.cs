@@ -15,5 +15,7 @@
 			PricePerKm = price;
 			Distance = distance;
 		}
+
+		public Route() { }
 	}
 }

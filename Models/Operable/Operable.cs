@@ -11,5 +11,6 @@
 			IsOperable = isOperable;
 			Coefficient = coefficient;
 		}
+		public Operable() { }
 	}
 }

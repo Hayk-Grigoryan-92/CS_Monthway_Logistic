@@ -15,5 +15,6 @@ namespace lesson45.Models.Car
 			Model = model;
 			Type = type;
 		}
+		public VehicleModel() { }
 	}
 }

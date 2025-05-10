@@ -38,7 +38,7 @@ namespace lesson45.Services.Implementations
 			}
 		}
 
-		public IEnumerable<Route> Get()
+		public IEnumerable<Route> GetAll()
 		{
 			return _database.Routes;
 		}

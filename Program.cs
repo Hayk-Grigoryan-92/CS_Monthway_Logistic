@@ -17,13 +17,16 @@ namespace lesson45
 	{
 		static void Main(string[] args)
 		{
-			Database database = new Database();
-			var routeService = new RouteServise(database);
-			var vehicleService = new VehicleService(database);
-			var modelService = new ModelService(database);
-			var containerService = new ContainerService(database);
-			var operableService = new OperableService(database);
-			var vehicleTypeCoefficientService = new VehicleTypeCoefficientService();
+
+			//Database database = new Database();
+			//var routeService = new RouteServise(database);
+			//var vehicleService = new VehicleService(database);
+			//var modelService = new ModelService(database);
+			//var containerService = new ContainerService(database);
+			//var operableService = new OperableService(database);
+			//var vehicleTypeCoefficientService = new VehicleTypeCoefficientService();
+
+			var Db
 
 			var dataBaseService = new DatabaseService(
 				modelService, operableService, routeService, containerService, vehicleTypeCoefficientService
@@ -61,7 +64,7 @@ namespace lesson45
 											int routeDistance = int.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Route Price per km:");
 											int routePricePerKm = int.Parse(Console.ReadLine());
-											Route newRoute = new Route(1, fromA, toB, routePricePerKm, routeDistance);
+											Route newRoute = new Route(fromA, toB, routePricePerKm, routeDistance);
 											routeService.Add(newRoute);
 											Console.WriteLine("Route added successfully!");
 											break;
@@ -86,7 +89,7 @@ namespace lesson45
 											routeService.Delete(deleteId);
 											break;
 										case 4: // Get Routes
-											var routesList = routeService.Get();
+											var routesList = routeService.GetAll();
 											routesList
 												.ToList()
 												.ForEach(x => Console.WriteLine($"{x.Id} | {x.Fromm} | {x.Too} | {x.Distance} | {x.PricePerKm}"));
@@ -112,7 +115,7 @@ namespace lesson45
 										case 1: // Add Vehicle
 											Console.WriteLine("Enter Vehicle Mark:");
 											string addMark = Console.ReadLine();
-											Vehicle newVehicle = new Vehicle(1, addMark);
+											Vehicle newVehicle = new Vehicle(addMark);
 											vehicleService.Add(newVehicle);
 											Console.WriteLine("Vehicle added successfully!");
 											break;
@@ -131,7 +134,7 @@ namespace lesson45
 											vehicleService.Delete(deleteId);
 											break;
 										case 4: // Get Vehicles
-											var vehiclesList = vehicleService.Get();
+											var vehiclesList = vehicleService.GetAll();
 											vehiclesList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Mark} "));
 											break;
 										case 5: // Back
@@ -186,7 +189,7 @@ namespace lesson45
 											modelService.Delete(deleteId);
 											break;
 										case 4: // Get Models
-											var modelList = modelService.Get();
+											var modelList = modelService.GetAll();
 											modelList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Model} | {x.Year} | {x.Price} | {x.Type}"));
 											break;
 										case 5: // Back
@@ -217,13 +220,11 @@ namespace lesson45
 											Console.WriteLine("Container added successfully!");
 											break;
 										case 2: // Update Container
-											Console.WriteLine("Enter Vehicle Id");
-											int updateId = int.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Container Open Status (true/false):");
 											bool updateIsOpen = bool.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Container Coefficient:");
 											float updateContainerCoefficient = float.Parse(Console.ReadLine());
-											ContainerModel updateContainer = new ContainerModel(updateIsOpen, updateContainerCoefficient, updateId);
+											ContainerModel updateContainer = new ContainerModel(updateIsOpen, updateContainerCoefficient);
 											containerService.Add(updateContainer);
 											Console.WriteLine("Container updated successfully!");
 											break;
@@ -233,7 +234,7 @@ namespace lesson45
 											containerService.Delete(deleteId);
 											break;
 										case 4: // Get Models
-											var containersList = containerService.Get();
+											var containersList = containerService.GetAll();
 											containersList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Coefficient} | {x.IsOpen}"));
 											break;
 										case 5: // Back
@@ -280,7 +281,7 @@ namespace lesson45
 											operableService.Delete(deleteId);
 											break;
 										case 4: // Get Operables
-											var operablesList = operableService.Get();
+											var operablesList = operableService.GetAll();
 											operablesList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Coefficient} | {x.IsOperable}"));
 											break;
 										case 5: // Back

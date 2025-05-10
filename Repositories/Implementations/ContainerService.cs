@@ -31,7 +31,7 @@ namespace lesson45.Repositories.Implementations
 			}
 		}
 
-		public IEnumerable<ContainerModel> Get()
+		public IEnumerable<ContainerModel> GetAll()
 			=> _database.ContainerModels;
 
 		public void Update(ContainerModel item)

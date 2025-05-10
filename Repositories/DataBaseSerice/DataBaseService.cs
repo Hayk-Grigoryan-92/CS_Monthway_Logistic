@@ -36,7 +36,7 @@ namespace lesson45.Repositories.Service
 
 		public float CalculationModel(Request request)
 		{
-			var route = Route.Get().FirstOrDefault(x => x.Fromm == request.From && x.Too == request.To);
+			var route = Route.GetAll().FirstOrDefault(x => x.Fromm == request.From && x.Too == request.To);
 			
 			if (route == null)
 			{
@@ -44,7 +44,7 @@ namespace lesson45.Repositories.Service
 			}
 
 			var operableItem = CarOperable
-				.Get()
+				.GetAll()
 				.FirstOrDefault(x => x.IsOperable == request.IsOperable);
 
 			if (operableItem == null)
@@ -52,13 +52,13 @@ namespace lesson45.Repositories.Service
 				throw new Exception("Type of operable doesn't exist");
 			}
 
-			var container = ContainerType.Get().FirstOrDefault(x => x.IsOpen == request.Container);
+			var container = ContainerType.GetAll().FirstOrDefault(x => x.IsOpen == request.Container);
 			if (container == null)
 			{
 				throw new Exception("Type of container doesn't exist");
 			}
 
-			var vehicleType = CarType.Get().FirstOrDefault(x =>
+			var vehicleType = CarType.GetAll().FirstOrDefault(x =>
 			x.Model.Equals(request.Model));
 		
 			if (vehicleType == null)
