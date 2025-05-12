@@ -8,7 +8,6 @@
 		public string Mark { get; set; }
 		public string Model { get; set; }
 		public bool IsOperable { get; set; }
-
 		public bool Container { get; set; }
 		public string Email { get; set; }
 

@@ -4,13 +4,10 @@ using lesson45.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lesson45.Repositories.DbRepository
 {
-    internal class DbRouteRepository : IRepository<Route>
+    public class DbRouteRepository : IRepository<Route>
     {
         public void Add(Route t)
         {
@@ -20,8 +17,7 @@ namespace lesson45.Repositories.DbRepository
                 using(SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "insert into Route values(@Id, @Fromm, @Too, @PricePerKm, @Distance)";
-                    command.Parameters.Add(new SqlParameter("@Id", t.Id));
+                    command.CommandText = "insert into Route values(@Fromm, @Too, @PricePerKm, @Distance)";
                     command.Parameters.Add(new SqlParameter("@Fromm", t.Fromm));
                     command.Parameters.Add(new SqlParameter("@Too", t.Too));
                     command.Parameters.Add(new SqlParameter("@PricePerKm", t.PricePerKm));
@@ -40,7 +36,7 @@ namespace lesson45.Repositories.DbRepository
                 {
                     command.Connection = connection;
                     command.CommandText = "delete from Route where Id = @Id";
-                    command.Parameters.Add(new SqlParameter("id", id));
+                    command.Parameters.Add(new SqlParameter("@Id", id));
                     command.ExecuteNonQuery ();
                 }
             }
@@ -92,8 +88,8 @@ namespace lesson45.Repositories.DbRepository
                             route.Id = int.Parse(reader["Id"].ToString());
                             route.Fromm = reader["Fromm"].ToString();
                             route.Too = reader["Too"].ToString() ;
-                            route.Id = int.Parse(reader["PricePerKm"].ToString());
-                            route.Id = int.Parse(reader["Distance"].ToString());
+                            route.PricePerKm = int.Parse(reader["PricePerKm"].ToString());
+                            route.Distance = int.Parse(reader["Distance"].ToString());
                         }
                     }
                 }
@@ -109,7 +105,7 @@ namespace lesson45.Repositories.DbRepository
                 using(SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "update Route set Id = @Id, Fromm = @Fromm, Too = @Too, PricePerKm = @PricePerKm, Distance = @Distance";
+                    command.CommandText = "update Route set Fromm = @Fromm, Too = @Too, PricePerKm = @PricePerKm, Distance = @Distance where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", t.Id));
                     command.Parameters.Add(new SqlParameter("@Fromm", t.Fromm));
                     command.Parameters.Add(new SqlParameter("Too", t.Too));

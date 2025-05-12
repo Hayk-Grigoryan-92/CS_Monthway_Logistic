@@ -13,6 +13,11 @@ namespace lesson45.Models.Car
 		{
 			Mark = mark;
 		}
-		public Vehicle() { }
+        public Vehicle(int id, string mark)
+        {
+			Id = id;
+            Mark = mark;
+        }
+        public Vehicle() { }
 	}
 }

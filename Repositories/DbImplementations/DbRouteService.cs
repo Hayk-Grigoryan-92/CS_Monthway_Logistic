@@ -1,17 +1,15 @@
 ﻿using lesson45.Models;
 using lesson45.Models.RouteFromTo;
 using lesson45.Repositories.Abstractions;
+using lesson45.Repositories.DbRepository;
 using lesson45.Services.Abstractions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lesson45.Repositories.DbImplementations
 {
    
-    internal class DbRouteService: IServices<Route>
+    public class DbRouteService: IServices<Route>
     {
         private IRepository<Route> _route;
 
@@ -25,7 +23,8 @@ namespace lesson45.Repositories.DbImplementations
             try
             {
                 _route.Add(route);
-                Console.WriteLine("Container added successfully.");
+                Console.WriteLine("Route added successfully.");
+                return;
             }
             catch(Exception ex)
             {

@@ -5,9 +5,6 @@ using lesson45.Services.Abstractions;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lesson45.Repositories.DbRepository
 {
@@ -21,8 +18,7 @@ namespace lesson45.Repositories.DbRepository
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "insert into Model values(@Id, @Model, @Type, @Year, @Price)";
-                    command.Parameters.Add(new SqlParameter("@Id", t.Id));
+                    command.CommandText = "insert into Model values(@Model, @Type, @Year, @Price)";
                     command.Parameters.Add(new SqlParameter("@Model", t.Model));
                     command.Parameters.Add(new SqlParameter("@Type", t.Type));
                     command.Parameters.Add(new SqlParameter("@Year", t.Year));
@@ -63,6 +59,7 @@ namespace lesson45.Repositories.DbRepository
                         while (reader.Read())
                         {
                             VehicleModel model = new VehicleModel();
+                            model.Id = int.Parse(reader["Id"].ToString());
                             model.Model = reader["Model"].ToString();
                             model.Type = (VehicleType)Enum.Parse(typeof(VehicleType), reader["Type"].ToString());
                             model.Year = int.Parse(reader["Year"].ToString());
@@ -90,6 +87,7 @@ namespace lesson45.Repositories.DbRepository
                     {
                         while (reader.Read())
                         {
+                            model.Id = int.Parse(reader["Id"].ToString());
                             model.Model = reader["Model"].ToString();
                             model.Type = (VehicleType)Enum.Parse(typeof(VehicleType), reader["Type"].ToString());
                             model.Price = int.Parse(reader["Price"].ToString());
@@ -109,7 +107,7 @@ namespace lesson45.Repositories.DbRepository
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "update Model set Id = @Id, Mark = @Mark";
+                    command.CommandText = "update Model set Model = @Model, Type = @Type, Year = @Year, Price = @Price where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", t.Id));
                     command.Parameters.Add(new SqlParameter("@Model", t.Model));
                     command.Parameters.Add(new SqlParameter("@Type", t.Type));

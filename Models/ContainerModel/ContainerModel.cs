@@ -12,6 +12,12 @@
 			IsOpen = isOpen;
 			Coefficient = coefficient;
 		}
+        public ContainerModel(int id, bool isOpen, float coefficient)
+        {
+			Id = id;
+            IsOpen = isOpen;
+            Coefficient = coefficient;
+        }
         public ContainerModel()
         {
         }

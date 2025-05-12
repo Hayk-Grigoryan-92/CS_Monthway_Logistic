@@ -4,9 +4,6 @@ using lesson45.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lesson45.Repositories.DbImplementations
 {
@@ -65,7 +62,6 @@ namespace lesson45.Repositories.DbImplementations
                             container.Id = int.Parse(reader["Id"].ToString());
                             container.IsOpen = bool.Parse(reader["IsOpen"].ToString());
                             container.Coefficient = int.Parse(reader["Coefficient"].ToString());
-
                             containers.Add(container);
                         }
                     }

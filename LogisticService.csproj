@@ -168,6 +168,7 @@
     <Compile Include="Models\ContainerModel\ContainerModel.cs" />
     <Compile Include="Models\DataBase\Database.cs" />
     <Compile Include="Models\Operable\Operable.cs" />
+    <Compile Include="Models\Order\Order.cs" />
     <Compile Include="Models\Route\Route.cs" />
     <Compile Include="Models\Vehicle\VehicleModel.cs" />
     <Compile Include="Models\Vehicle\Vehicle.cs" />

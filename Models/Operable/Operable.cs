@@ -11,6 +11,12 @@
 			IsOperable = isOperable;
 			Coefficient = coefficient;
 		}
-		public Operable() { }
+        public Operable(int id, bool isOperable, float coefficient)
+        {
+			Id = id;
+            IsOperable = isOperable;
+            Coefficient = coefficient;
+        }
+        public Operable() { }
 	}
 }

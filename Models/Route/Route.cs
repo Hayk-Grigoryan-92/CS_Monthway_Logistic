@@ -1,6 +1,6 @@
 ﻿namespace lesson45.Models.RouteFromTo
 {
-	internal class Route
+	public class Route
 	{
 		public int Id { get; set; }
 		public string Fromm { get; set; }
@@ -15,7 +15,15 @@
 			PricePerKm = price;
 			Distance = distance;
 		}
+        public Route(int id, string from, string to, int price, int distance)
+        {
+			Id = id;
+            Fromm = from;
+            Too = to;
+            PricePerKm = price;
+            Distance = distance;
+        }
 
-		public Route() { }
+        public Route() { }
 	}
 }

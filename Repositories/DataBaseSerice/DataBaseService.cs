@@ -34,43 +34,51 @@ namespace lesson45.Repositories.Service
 			Coefficient = coefficient;
 		}
 
-		public float CalculationModel(Request request)
-		{
-			var route = Route.GetAll().FirstOrDefault(x => x.Fromm == request.From && x.Too == request.To);
-			
-			if (route == null)
-			{
-				throw new Exception("Route doesn't exist");
-			}
 
-			var operableItem = CarOperable
-				.GetAll()
-				.FirstOrDefault(x => x.IsOperable == request.IsOperable);
+        public float CalculationModel(Request request)
+        {
+            Route route = null;
+            Operable operableItem = null;
+            ContainerModel container = null;
+            VehicleModel vehicleType = null;
 
-			if (operableItem == null)
-			{
-				throw new Exception("Type of operable doesn't exist");
-			}
+            try
+            {
+                route = Route.GetAll().FirstOrDefault(x => x.Fromm == request.From && x.Too == request.To);
+                if (route == null)
+                {
+                    throw new Exception("Route doesn't exist");
+                }
 
-			var container = ContainerType.GetAll().FirstOrDefault(x => x.IsOpen == request.Container);
-			if (container == null)
-			{
-				throw new Exception("Type of container doesn't exist");
-			}
+                operableItem = CarOperable.GetAll().FirstOrDefault(x => x.IsOperable == request.IsOperable);
+                if (operableItem == null)
+                {
+                    throw new Exception("Type of operable doesn't exist");
+                }
 
-			var vehicleType = CarType.GetAll().FirstOrDefault(x =>
-			x.Model.Equals(request.Model));
-		
-			if (vehicleType == null)
-			{
-				throw new Exception("Vehicle model doesn't exist");
-			}
+                container = ContainerType.GetAll().FirstOrDefault(x => x.IsOpen == request.Container);
+                if (container == null)
+                {
+                    throw new Exception("Type of container doesn't exist");
+                }
 
-			var coefficient = Coefficient.GetCoefficient(vehicleType.Type);
+                vehicleType = CarType.GetAll().FirstOrDefault(x => x.Model.Equals(request.Model));
+                if (vehicleType == null)
+                {
+                    throw new Exception("Vehicle model doesn't exist");
+                }
 
-			int result = (int)Math.Round(route.Distance * operableItem.Coefficient * container.Coefficient * coefficient * route.PricePerKm);
+                var coefficient = Coefficient.GetCoefficient(vehicleType.Type);
 
-			return result;
-		}
-	}
+                float result = route.Distance * operableItem.Coefficient * container.Coefficient * coefficient * route.PricePerKm;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Calculation error: " + ex.Message);
+                return 0;
+            }
+        }
+    }
 }

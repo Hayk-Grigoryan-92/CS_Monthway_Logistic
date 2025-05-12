@@ -2,7 +2,6 @@
 using lesson45.Models.Car;
 using lesson45.Services.Abstractions;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
 
 namespace lesson45.Repositories.DbRepository
@@ -17,8 +16,7 @@ namespace lesson45.Repositories.DbRepository
                 using(SqlCommand command = connection.CreateCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "insert into Vehicle values(@Id, @Mark)";
-                    command.Parameters.Add(new SqlParameter("@Id", t.Id));
+                    command.CommandText = "insert into Vehicle values(@Mark)";
                     command.Parameters.Add(new SqlParameter("@Mark", t.Mark));
                     command.ExecuteNonQuery();
                 }
@@ -55,6 +53,7 @@ namespace lesson45.Repositories.DbRepository
                         while (reader.Read())
                         {
                             Vehicle vehicle = new Vehicle();
+                            vehicle.Id = int.Parse(reader["Id"].ToString());
                             vehicle.Mark = reader["Mark"].ToString();
                             vehicles.Add(vehicle);
                         }
@@ -79,6 +78,7 @@ namespace lesson45.Repositories.DbRepository
                     {
                         while (reader.Read())
                         {
+                            vehicle.Id = int.Parse(reader["Id"].ToString());
                             vehicle.Mark = reader["Mark"].ToString();
                         }
                     }
@@ -95,7 +95,7 @@ namespace lesson45.Repositories.DbRepository
                 using(SqlCommand command=new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "update Vehicle set Id = @Id, Mark = @Mark";
+                    command.CommandText = "update Vehicle set Mark = @Mark where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", t.Id));
                     command.Parameters.Add(new SqlParameter("@Mark", t.Mark));
                     command.ExecuteNonQuery();

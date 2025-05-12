@@ -2,7 +2,7 @@
 
 namespace lesson45.Services.Abstractions
 {
-	interface IRepository<T>
+	public interface IRepository<T>
 	{
 		void Add(T t);
 		void Update(T t);

@@ -8,4 +8,10 @@
 		Boat,
 		Truck,
 	}
+
+	public enum OrderStatus
+	{
+		InProgress,
+		Completed
+	}
 }

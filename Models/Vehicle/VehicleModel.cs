@@ -15,6 +15,12 @@ namespace lesson45.Models.Car
 			Model = model;
 			Type = type;
 		}
-		public VehicleModel() { }
+        public VehicleModel(int id, string model, VehicleType type)
+        {
+			Id = id;
+            Model = model;
+            Type = type;
+        }
+        public VehicleModel() { }
 	}
 }

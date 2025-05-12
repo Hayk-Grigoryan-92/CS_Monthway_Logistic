@@ -2,37 +2,37 @@
 using lesson45.Models;
 using lesson45.Models.Car;
 using lesson45.Models.ContainerType;
-using lesson45.Models.DataBase;
 using lesson45.Models.RouteFromTo;
+using lesson45.Repositories.DbImplementations;
+using lesson45.Repositories.DbRepository;
 using lesson45.Repositories.Implementations;
 using lesson45.Repositories.Service;
 using lesson45.RequestList;
-using lesson45.Services.Implementations;
 using System;
-using System.Linq;
 
 namespace lesson45
 {
-	internal class Program
-	{
-		static void Main(string[] args)
-		{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var routeRepository = new DbRouteRepository();
+			var containerRepository = new DbContainerRepository();
+			var vehicleRepository = new DbVehicleRepository();
+			var modelRepository = new DbVehiclemodelRepository();
+			var operableRepository = new DbOperableRepository();
 
-			//Database database = new Database();
-			//var routeService = new RouteServise(database);
-			//var vehicleService = new VehicleService(database);
-			//var modelService = new ModelService(database);
-			//var containerService = new ContainerService(database);
-			//var operableService = new OperableService(database);
-			//var vehicleTypeCoefficientService = new VehicleTypeCoefficientService();
+            var containerService = new DbContainerService(containerRepository);
+            var routeService = new DbRouteService(routeRepository);
+            var vehicleService = new DbVehicleService(vehicleRepository);
+            var modelService = new DbVehicleModelService(modelRepository);
+            var operableService = new DbOperableService(operableRepository);
+            var vehicleTypeCoefficientService = new VehicleTypeCoefficientService();
+			var dataBaseService = new DatabaseService(modelRepository,operableRepository,routeRepository,containerRepository,vehicleTypeCoefficientService);
 
-			var Db
+            
 
-			var dataBaseService = new DatabaseService(
-				modelService, operableService, routeService, containerService, vehicleTypeCoefficientService
-			);
-
-			bool flag = true;
+            bool flag = true;
 			while (flag)
 			{
 				Console.WriteLine("-----------Monthway Auto Transport Service-----------------");
@@ -48,12 +48,12 @@ namespace lesson45
 						switch (adminOption)
 						{
 							case 1: // Route Menu
-								Console.WriteLine("Press 1 : Add Route | Press 2 : Update Route | Press 3 : Delete Route | Press 4 : Get Routes | Press 5:  Back");
 								bool routeFlag = true;
-								int routeOption = int.Parse(Console.ReadLine());
 								while (routeFlag)
 								{
-									switch (routeOption)
+                                    Console.WriteLine("Press 1 : Add Route | Press 2 : Update Route | Press 3 : Delete Route | Press 4 : Get Routes | Press 5:  Back");
+                                    int routeOption = int.Parse(Console.ReadLine());
+                                    switch (routeOption)
 									{
 										case 1: // Add Route
 											Console.WriteLine("Enter Route From:");
@@ -66,12 +66,11 @@ namespace lesson45
 											int routePricePerKm = int.Parse(Console.ReadLine());
 											Route newRoute = new Route(fromA, toB, routePricePerKm, routeDistance);
 											routeService.Add(newRoute);
-											Console.WriteLine("Route added successfully!");
 											break;
 										case 2: // Update Routex
-											Console.WriteLine("Enter Id");
-											int updateId = int.Parse(Console.ReadLine());
-											Console.WriteLine("Enter Route From:");
+                                            Console.WriteLine("Enter Id");
+											int id = int.Parse(Console.ReadLine());
+                                            Console.WriteLine("Enter Route From:");
 											string updateFromA = Console.ReadLine();
 											Console.WriteLine("Enter Route To:");
 											string updateToB = Console.ReadLine();
@@ -79,9 +78,8 @@ namespace lesson45
 											int updateRouteDistance = int.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Route Price per km:");
 											int updateRoutePricePerKm = int.Parse(Console.ReadLine());
-											Route updatedRoute = new Route(updateId, updateFromA, updateToB, updateRoutePricePerKm, updateRouteDistance);
+											Route updatedRoute = new Route(id,updateFromA, updateToB, updateRoutePricePerKm, updateRouteDistance);
 											routeService.Update(updatedRoute);
-											Console.WriteLine("Route updated successfully!");
 											break;
 										case 3: // Dlete Route
 											Console.WriteLine("Enter Id");
@@ -89,10 +87,7 @@ namespace lesson45
 											routeService.Delete(deleteId);
 											break;
 										case 4: // Get Routes
-											var routesList = routeService.GetAll();
-											routesList
-												.ToList()
-												.ForEach(x => Console.WriteLine($"{x.Id} | {x.Fromm} | {x.Too} | {x.Distance} | {x.PricePerKm}"));
+											routeService.ShowAll();
 											break;
 										case 5: // Back
 											routeFlag = false;
@@ -106,27 +101,25 @@ namespace lesson45
 
 							case 2: // Vehicle Menu
 								bool vehicleFlag = true;
-								Console.WriteLine("Press 1 : Add Vehicle | Press 2 : Update Vehicle | Press 3 : Delete Vehicle | Press 4 : Get Vehicle | Press 5:  Back");
-								int vehicleOption = int.Parse(Console.ReadLine());
 								while (vehicleFlag)
 								{
-									switch (vehicleOption)
+                                    Console.WriteLine("Press 1 : Add Vehicle | Press 2 : Update Vehicle | Press 3 : Delete Vehicle | Press 4 : Get Vehicle | Press 5:  Back");
+                                    int vehicleOption = int.Parse(Console.ReadLine());
+                                    switch (vehicleOption)
 									{
 										case 1: // Add Vehicle
 											Console.WriteLine("Enter Vehicle Mark:");
 											string addMark = Console.ReadLine();
 											Vehicle newVehicle = new Vehicle(addMark);
 											vehicleService.Add(newVehicle);
-											Console.WriteLine("Vehicle added successfully!");
 											break;
 										case 2: // Update Vehicle
-											Console.WriteLine("Enter Vehicle Id");
-											int updateId = int.Parse(Console.ReadLine());
-											Console.WriteLine("\"Enter Vehicle Mark:");
+                                            Console.WriteLine("Enter Id");
+                                            int id = int.Parse(Console.ReadLine());
+                                            Console.WriteLine("\"Enter Vehicle Mark:");
 											string updateMark = Console.ReadLine();
-											Vehicle updateVehicle = new Vehicle(updateId, updateMark);
+											Vehicle updateVehicle = new Vehicle(id,updateMark);
 											vehicleService.Update(updateVehicle);
-											Console.WriteLine("Vehicle updated successfully!");
 											break;
 										case 3: // Delete Vehicle
 											Console.WriteLine("Enter Vehicle Id");
@@ -134,8 +127,7 @@ namespace lesson45
 											vehicleService.Delete(deleteId);
 											break;
 										case 4: // Get Vehicles
-											var vehiclesList = vehicleService.GetAll();
-											vehiclesList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Mark} "));
+											vehicleService.ShowAll();
 											break;
 										case 5: // Back
 											vehicleFlag = false;
@@ -149,11 +141,11 @@ namespace lesson45
 
 							case 3: //  Vehicle Model Menu
 								bool modelFlag = true;
-								Console.WriteLine("Press 1 : Add Model | Press 2 : Update Model | Press 3 : Delete Model | Press 4 : Get Models | Press 5:  Back");
-								int modelOption = int.Parse(Console.ReadLine());
 								while (modelFlag)
 								{
-									switch (modelOption)
+                                    Console.WriteLine("Press 1 : Add Model | Press 2 : Update Model | Press 3 : Delete Model | Press 4 : Get Models | Press 5:  Back");
+                                    int modelOption = int.Parse(Console.ReadLine());
+                                    switch (modelOption)
 									{
 										case 1: // Add Model
 											Console.WriteLine("Enter Vehicle Model:");
@@ -164,14 +156,13 @@ namespace lesson45
 											VehicleType type = (VehicleType)(int.Parse(Console.ReadLine()) - 1);
 											Console.WriteLine("Enter Vehicle Model Coefficient:");
 											float modelCoefficient = float.Parse(Console.ReadLine());
-											VehicleModel newModel = new VehicleModel(1, modelA, type);
+											VehicleModel newModel = new VehicleModel(modelA, type);
 											modelService.Add(newModel);
-											Console.WriteLine("Vehicle Model added successfully!");
 											break;
 										case 2: // Update Model
-											Console.WriteLine("Enter Vehicle Id");
-											int updateId = int.Parse(Console.ReadLine());
-											Console.WriteLine("Enter Vehicle Model:");
+                                            Console.WriteLine("Enter Id");
+                                            int id = int.Parse(Console.ReadLine());
+                                            Console.WriteLine("Enter Vehicle Model:");
 											string updateModelA = Console.ReadLine();
 											Console.WriteLine("Enter Vehicle Price:");
 											int updatePrice = int.Parse(Console.ReadLine());
@@ -179,9 +170,8 @@ namespace lesson45
 											VehicleType updateType = (VehicleType)(int.Parse(Console.ReadLine()) - 1);
 											Console.WriteLine("Enter Vehicle Model Coefficient:");
 											float updateModelCoefficient = float.Parse(Console.ReadLine());
-											VehicleModel updateModel = new VehicleModel(updateId, updateModelA, updateType);
+											VehicleModel updateModel = new VehicleModel(id,updateModelA, updateType);
 											modelService.Update(updateModel);
-											Console.WriteLine("Vehicle Model updated successfully!");
 											break;
 										case 3: // Dlete Model
 											Console.WriteLine("Enter Model Id");
@@ -189,8 +179,7 @@ namespace lesson45
 											modelService.Delete(deleteId);
 											break;
 										case 4: // Get Models
-											var modelList = modelService.GetAll();
-											modelList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Model} | {x.Year} | {x.Price} | {x.Type}"));
+											modelService.ShowAll();
 											break;
 										case 5: // Back
 											modelFlag = false;
@@ -204,29 +193,29 @@ namespace lesson45
 
 							case 4: //  Container Menu
 								bool containerFlag = true;
-								Console.WriteLine("Press 1 : Add Container | Press 2 : Update Container | Press 3 : Delete Container | Press 4 : Get Container | Press 5:  Back");
-								int containerOption = int.Parse(Console.ReadLine());
 								while (containerFlag)
 								{
-									switch (containerOption)
+                                    Console.WriteLine("Press 1 : Add Container | Press 2 : Update Container | Press 3 : Delete Container | Press 4 : Get Container | Press 5:  Back");
+                                    int containerOption = int.Parse(Console.ReadLine());
+                                    switch (containerOption)
 									{
 										case 1: // Add Container
 											Console.WriteLine("Enter Container Open Status (true/false):");
 											bool isOpen = bool.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Container Coefficient:");
 											float containerCoefficient = float.Parse(Console.ReadLine());
-											ContainerModel newContainer = new ContainerModel(isOpen, containerCoefficient, 1);
+											ContainerModel newContainer = new ContainerModel(isOpen, containerCoefficient);
 											containerService.Add(newContainer);
-											Console.WriteLine("Container added successfully!");
 											break;
 										case 2: // Update Container
-											Console.WriteLine("Enter Container Open Status (true/false):");
+                                            Console.WriteLine("Enter Id");
+                                            int id = int.Parse(Console.ReadLine());
+                                            Console.WriteLine("Enter Container Open Status (true/false):");
 											bool updateIsOpen = bool.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Container Coefficient:");
 											float updateContainerCoefficient = float.Parse(Console.ReadLine());
-											ContainerModel updateContainer = new ContainerModel(updateIsOpen, updateContainerCoefficient);
+											ContainerModel updateContainer = new ContainerModel(id,updateIsOpen, updateContainerCoefficient);
 											containerService.Add(updateContainer);
-											Console.WriteLine("Container updated successfully!");
 											break;
 										case 3:
 											Console.WriteLine("Enter Container Id");
@@ -234,8 +223,7 @@ namespace lesson45
 											containerService.Delete(deleteId);
 											break;
 										case 4: // Get Models
-											var containersList = containerService.GetAll();
-											containersList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Coefficient} | {x.IsOpen}"));
+											containerService.ShowAll();
 											break;
 										case 5: // Back
 											containerFlag = false;
@@ -249,31 +237,29 @@ namespace lesson45
 
 							case 5: // Operable Menu
 								bool operableFlag = true;
-								Console.WriteLine("Press 1 : Add Operable | Press 2 : Update Operable | Press 3 : Delete Operable | Press 4 : Get Operable | Press 5:  Back");
-								int operableOption = int.Parse(Console.ReadLine());
 								while (operableFlag)
 								{
-									switch (operableOption)
+                                    Console.WriteLine("Press 1 : Add Operable | Press 2 : Update Operable | Press 3 : Delete Operable | Press 4 : Get Operable | Press 5:  Back");
+                                    int operableOption = int.Parse(Console.ReadLine());
+                                    switch (operableOption)
 									{
 										case 1: // Add Operable
 											Console.WriteLine("Enter Container Operable Status (true/false):");
 											bool isOperable = bool.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Container Coefficient:");
 											float isOperableCoefficient = float.Parse(Console.ReadLine());
-											Operable newOperable = new Operable(isOperable, isOperableCoefficient, 1);
+											Operable newOperable = new Operable(isOperable, isOperableCoefficient);
 											operableService.Add(newOperable);
-											Console.WriteLine("Operable type added successfully!");
 											break;
-										case 2: // Update Operable
-											Console.WriteLine("Enter Vehicle Id");
-											int updateId = int.Parse(Console.ReadLine());
-											Console.WriteLine("Enter Container Operable Status (true/false):");
+										case 2: // Update Operable;
+                                            Console.WriteLine("Enter Id");
+                                            int id = int.Parse(Console.ReadLine());
+                                            Console.WriteLine("Enter Container Operable Status (true/false):");
 											bool updateIsOperable = bool.Parse(Console.ReadLine());
 											Console.WriteLine("Enter Container Coefficient:");
 											float updateIsOperableCoefficient = float.Parse(Console.ReadLine());
-											Operable updateOperable = new Operable(updateIsOperable, updateIsOperableCoefficient, updateId);
+											Operable updateOperable = new Operable(id,updateIsOperable, updateIsOperableCoefficient);
 											operableService.Add(updateOperable);
-											Console.WriteLine("Operable type updated successfully!");
 											break;
 										case 3: // Delete Operable
 											Console.WriteLine("Enter Operable Id");
@@ -281,11 +267,10 @@ namespace lesson45
 											operableService.Delete(deleteId);
 											break;
 										case 4: // Get Operables
-											var operablesList = operableService.GetAll();
-											operablesList.ToList().ForEach(x => Console.WriteLine($"{x.Id} | {x.Coefficient} | {x.IsOperable}"));
+											operableService.ShowAll();
 											break;
 										case 5: // Back
-											containerFlag = false;
+                                            operableFlag = false;
 											break;
 										default:
 											Console.WriteLine("Wrong option choosed");
@@ -334,7 +319,6 @@ namespace lesson45
 							IsOperable = isOperableUser,
 							Email = email
 						};
-
 						try
 						{
 							double result = dataBaseService.CalculationModel(userRequest);
@@ -347,7 +331,6 @@ namespace lesson45
 							Console.WriteLine($"Error: {ex.Message}");
 						}
 						break;
-
 					case 3:
 						flag = false;
 						break;

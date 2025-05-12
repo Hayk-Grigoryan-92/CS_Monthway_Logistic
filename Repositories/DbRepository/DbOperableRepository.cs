@@ -4,9 +4,6 @@ using lesson45.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lesson45.Repositories.DbRepository
 {
@@ -102,7 +99,8 @@ namespace lesson45.Repositories.DbRepository
                 using(SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "update Operable set Id = @Id, IsOperable = @IsOperable, Coefficient = @Coefficient";
+                    command.CommandText = "update Operable set IsOperable = @IsOperable, Coefficient = @Coefficient where ID = @Id";
+                    command.Parameters.Add(new SqlParameter("@Id", t.Id));
                     command.Parameters.Add(new SqlParameter(" @IsOperable", t.IsOperable));
                     command.Parameters.Add(new SqlParameter("@Coefficient", t.Coefficient));
                     command.ExecuteNonQuery();
