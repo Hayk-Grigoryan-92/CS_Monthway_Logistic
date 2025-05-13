@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace lesson45.Services.Abstractions
 {
-	interface IRepository<T>
+	public interface IRepository<T>
 	{
 		void Add(T t);
 		void Update(T t);
 		void Delete(int id);
-		List<T> Get();
+		T GetById(int id);
+		IEnumerable<T> GetAll();
 	}
 }
